@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장바구니</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- 외부 css로 장바구니 외관 디자인-->
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3>Cart</h3>
+        <table class="table"><!--table 활용으로 장바구니 내용 구성-->
+            <thead><!--table 상단에 상품 관련 항목 구성-->
+                <tr>
+                    <th>상품명</th>
+                    <th>가격</th>
+                    <th>수량</th>
+                    <th>합계</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="cart-items"><!--상품 상세 내용을 table의 body에 추가-->
+            </tbody>
+        </table>
+        <div id="total-price"></div><!--장바구니에 저장된 상품의 가격 총합 표시-->
+        <button id="checkout-button" class="btn btn-danger mt-3" data-toggle="modal" data-target="#paymentModal">
+            결제하기<!--결제 버튼 생성-->
+        </button>
+        <br>
+        <button id="go-home" class="btn btn-outline-danger mt-2">홈으로</button><!--홈(index.html)으로 되돌아가는 버튼 생성-->
+    </div>
+
+    <!-- 결제창 모달 -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Payment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-total-price">Total: 0원</p>
+                    <button class="btn btn-success btn-block" onclick="processPayment()">결제</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script><!--외부 코드로 모달 창 생성-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script><!--외부 css로 모달 창 디자인 구성-->
+    
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || []; //local storage에 저장된 제품의 값들을 json으로 변환해 cart에 저장
+
+        function showCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const row = document.createElement('tr');
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = item.name;
+                row.appendChild(nameCell);
+
+                const priceCell = document.createElement('td');
+                priceCell.textContent = item.price.toLocaleString() + '원';
+                row.appendChild(priceCell);
+
+                // 수량 조작 UI 추가
+                const quantityCell = document.createElement('td');
+                const decreaseButton = document.createElement('button');
+                decreaseButton.textContent = '-';
+                decreaseButton.classList.add('btn', 'btn-secondary', 'btn-sm', 'mr-1');
+                decreaseButton.onclick = function () {
+                    updateQuantity(item.id, item.quantity - 1);
+                };
+
+                const quantityText = document.createElement('span');
+                quantityText.textContent = item.quantity;
+                quantityText.style.margin = '0 10px';
+
+                const increaseButton = document.createElement('button');
+                increaseButton.textContent = '+';
+                increaseButton.classList.add('btn', 'btn-secondary', 'btn-sm', 'ml-1');
+                increaseButton.onclick = function () {
+                    updateQuantity(item.id, item.quantity + 1);
+                };
+
+                quantityCell.appendChild(decreaseButton);
+                quantityCell.appendChild(quantityText);
+                quantityCell.appendChild(increaseButton);
+                row.appendChild(quantityCell);
+
+                const totalCell = document.createElement('td');
+                const itemTotal = item.price * item.quantity;
+                totalCell.textContent = itemTotal.toLocaleString() + '원';
+                row.appendChild(totalCell);
+
+                const deleteCell = document.createElement('td');
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = '삭제';
+                deleteButton.classList.add('btn', 'btn-danger');
+                deleteButton.onclick = function () {
+                    removeFromCart(item.id);
+                };
+                deleteCell.appendChild(deleteButton);
+                row.appendChild(deleteCell);
+
+                cartItemsContainer.appendChild(row);
+
+                total += itemTotal;
+            });
+
+            document.getElementById('total-price').textContent = '총합: ' + total.toLocaleString() + '원';
+
+            //모달창에 합계 금액
+            document.getElementById('modal-total-price').textContent = '총합: ' + total.toLocaleString() + '원';
+
+            //금액을 localStorage에 저장
+            localStorage.setItem('totalPrice', total);
+        }
+
+        function updateQuantity(id, newQuantity) {
+            if (newQuantity < 1) return; // 최소 1개 이상 유지
+
+            cart = cart.map(item => item.id === id ? { ...item, quantity: newQuantity } : item);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            showCart();
+        }
+        
+        // product 삭제
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            showCart();
+        }
+
+        //결제 진행 
+        function processPayment() {
+            if (cart.length === 0) {
+                alert('장바구니에 항목이 없습니다.');
+                return;
+            }
+
+            let currentUser = localStorage.getItem('currentUser'); // 로그인 여부 확인
+
+            if (currentUser) {
+                alert('결제가 완료되었습니다!');
+                localStorage.removeItem('cart'); // 장바구니 초기화
+                localStorage.removeItem('totalPrice'); // 총 금액 초기화
+                $('#paymentModal').modal('hide'); // 모달 닫기
+                location.reload();
+            } else {
+                alert('로그인 후 결제 가능합니다.');
+                window.location.href = `login.html`;
+            }
+        }
+
+        document.getElementById('go-home').onclick = function () {
+            window.location.href = `index.html`;
+        };
+
+        window.onload = showCart;
+    </script>
+</body>
+
+</html>

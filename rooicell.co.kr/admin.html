@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="admin-wrapper">
+        <h2>회원 관리</h2>
+        <table id="user-table">
+            <thead>
+                <tr>
+                    <th>닉네임&nbsp;</th>
+                    <th>이메일&nbsp;</th><br>
+                    <th>삭제</th><br>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function renderUsers() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userTableBody = document.querySelector('#user-table tbody');
+            userTableBody.innerHTML = '';
+
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td><button onclick="deleteUser(${user.id})">삭제</button></td>
+                `;
+                userTableBody.appendChild(row);
+            });
+        }
+
+        function deleteUser(userId) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users = users.filter(user => user.id !== userId);
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('회원이 삭제되었습니다.');
+            renderUsers();
+        }
+
+        window.onload = renderUsers;
+    </script>
+</body>
+
+</html>

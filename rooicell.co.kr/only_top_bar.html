@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<title>루이셀</title>
+
+	<!-- jquery -->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+
+	<!-- slick -->
+	<script type="text/javascript" src="js/slick.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/slick.css" />
+
+	<!-- 공통 css/js -->
+	<script src="js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/commonbfee.css?v=20220128" />
+	<script src="js/indexbfee.js?v=20220128"></script>
+	<link rel="stylesheet" type="text/css" href="css/index_pcbfee.css?v=20220128"
+		media="screen and (min-width:1280px)" />
+
+	<link rel="stylesheet" type="text/css" href="css/locomotive-scroll.css" />
+	<script src="js/lodash.min.js"></script>
+	<script nomodule src="../cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.6.0/polyfill.min.js"
+		crossorigin="anonymous"></script>
+	<script nomodule
+		src="../polyfill.io/v3/polyfill.min82a1.js?features=Object.assign%2CElement.prototype.append%2CNodeList.prototype.forEach%2CCustomEvent%2Csmoothscroll"
+		crossorigin="anonymous"></script>
+	<script src="../cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js"></script>
+	<script src="../cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
+	<script src="js/locomotive-scroll.min.js"></script>
+	<script src="../code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script type="text/javascript" src="../ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+	<script src="../cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
+
+	<script>WebFont.load({ google: { families: ['Noto Sans KR', 'Montserrat'] } });</script>
+
+</head>
+
+<body class="">
+	<header id="header" class="" data-scroll-sticky>
+		<div class="header_wrap">
+			<nav id="nav">
+				<ul class="gnb">
+					<li class="menu">
+						<a href="detailM1.html" class="custom_mousemove small_h" target="_top"> <!--카테고리 눌렀을 때 디테일m1 위에 쌓여서 변경-->
+							<div>Gucci</div>
+						</a>
+						<div class="lnb sub1">
+							<ul class="dep2">
+								<li><a href="detailM1.html" class="custom_mousemove small_h" target="_top">ball cap</a></li>
+							</ul>
+						</div><!--lnb-->
+					</li>
+					<li class="menu">
+						<a href="detailM2.html" class="custom_mousemove small_h" target="_top">
+							<div>Cartier</div>
+						</a>
+						<div class="lnb sub2">
+							<ul class="dep2">
+								<li><a href="detailM2.html" class="custom_mousemove small_h" target="_top">necklace</a></li>
+								<li><a href="detailM2.html" class="custom_mousemove small_h" target="_top">earring</a></li>
+							</ul>
+						</div><!--lnb-->
+					</li>
+					<li class="menu">
+						<a href="detailM3.html" class="custom_mousemove small_h"  target="_top">
+							<div>Louisvuitton</div>
+						</a>
+						<div class="lnb sub3">
+							<ul class="dep2">
+								<li><a href="detailM3.html" class="custom_mousemove small_h" target="_top">ball cap</a></li>
+								<li><a href="detailM3.html" class="custom_mousemove small_h" target="_top">varsity jacket</a></li>
+								<li><a href="detailM3.html" class="custom_mousemove small_h" target="_top">boots</a></li>
+								<li><a href="detailM3.html" class="custom_mousemove small_h" target="_top">jump suit</a></li>
+								<li><a href="detailM3.html" class="custom_mousemove small_h" target="_top">jeans</a></li>
+								<li><a href="detailM3.html" class="custom_mousemove small_h" target="_top">coat</a></li>
+							</ul>
+						</div><!--lnb-->
+					</li>
+					<li class="menu">
+						<a href="detailM7.html" class="custom_mousemove small_h"  target="_top">
+							<div>Balenciaga</div>
+						</a>
+						<div class="lnb sub4">
+							<ul class="dep2">
+								<li><a href="detailM7.html" class="custom_mousemove small_h" target="_top">running shoes</a></li>
+								<li><a href="detailM7.html" class="custom_mousemove small_h" target="_top">sneakers</a></li>
+							</ul>
+						</div><!--lnb-->
+					</li>
+					<li class="menu">
+						<a href="detailM5.html" class="custom_mousemove small_h"  target="_top">
+							<div>Chanel</div>
+						</a>
+						<div class="lnb sub5">
+							<ul class="dep2">
+								<li><a href="detailM5.html" class="custom_mousemove small_h" target="_top">lipstick</a></li>
+								<li><a href="detailM5.html" class="custom_mousemove small_h" target="_top">watch</a></li>
+								<li><a href="detailM5.html" class="custom_mousemove small_h" target="_top">perfume</a></li>
+							</ul>
+						</div><!--lnb-->
+					</li>
+					<li class="menu">
+						<a href="detailM6.html" class="custom_mousemove small_h"  target="_top">
+							<div>Hermes</div>
+						</a>
+						<div class="lnb sub6">
+							<ul class="dep2">
+								<li><a href="detailM6.HTML" class="custom_mousemove small_h" target="_top">bucket hat</a></li>
+								<li><a href="detailM6.HTML" class="custom_mousemove small_h" target="_top">ring</a></li>
+								<li><a href="detailM6.HTML" class="custom_mousemove small_h" target="_top">T-shirts</a></li>
+								<li><a href="detailM6.HTML" class="custom_mousemove small_h" target="_top">loafer shoes</a></li>
+								<li><a href="detailM6.HTML" class="custom_mousemove small_h" target="_top">quilting jacket</a></li>
+								<li><a href="detailM6.HTML" class="custom_mousemove small_h" target="_top">jogger pants</a></li>
+							</ul>
+						</div><!--lnb-->
+					</li>
+					<li class="menu">
+						<a href="detailM4.html" class="custom_mousemove small_h"  target="_top">
+							<div>Thombrowne</div>
+						</a>
+						<div class="lnb sub7">
+							<ul class="dep2">
+								<li><a href="detailM4.html" class="custom_mousemove small_h" target="_top">beanie</a></li>
+								<li><a href="detailM4.html" class="custom_mousemove small_h" target="_top">slacks pants</a></li>
+							</ul>
+						</div><!--lnb-->
+					</li>
+				</ul>
+			</nav>
+			<!-- e : nav -->
+			<!-- s : group -->
+			<div class="language">
+				<button type="button">USER</button>
+				<ul class="list">
+					<li><a href="basket.html" class="custom_mousemove small_h" target="_top">장바구니</a></li>
+					<li><a href="login.html" target="_blank">로그아웃</a></li>
+				</ul>
+			</div>
+			<!-- e : group -->
+		</div>
+	</header>
+</body>
+
+</html>
+<script type="text/javascript">
+	$(window).load(function () {
+		gsap.to("#section_wrap", {
+			scrollTrigger: {
+				trigger: ".sec1",
+				scroller: ".page_scroll_wrap",
+				scrub: true,
+				start: "+=70%",
+				end: "+=100%",
+			},
+			background: 'rgba(0,0,0,0.3)',
+		});
+		gsap.to(".main_visual .sec_title_g", {
+			scrollTrigger: {
+				trigger: ".sec1",
+				scroller: ".page_scroll_wrap",
+				scrub: true,
+				start: "+=50%",
+				end: "+=70%",
+			},
+			opacity: 0,
+		});
+	});
+	
+</script>

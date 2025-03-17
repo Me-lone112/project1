@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 / 로그인 / 로그아웃</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    
+        <div id="signup-section" class="form">
+            <h2 class="bold">Register</h2>
+            <form id="signup-form">
+                <input type="text" id="signup-username" class="normal" placeholder="ID" required>
+                <input type="email" id="signup-email" class="normal" placeholder="E-Mail" required>
+                <input type="password" id="signup-password" class="normal" placeholder="Password" required>
+                <p class=""></p>
+                <button type="submit" class="b-button">Create Account</button>
+            </form>
+            <p class="normal">already have account? <a href="#" id="switch-to-login">Login</a></p>
+        </div>
+
+        <div id="login-section" class="form">
+            <h2 class="bold">Log In</h2>
+            <form id="login-form">
+                <input type="email" id="login-email" class="normal" placeholder="E-Mail" required>
+                <input type="password" id="login-password" class="normal" placeholder="Password" required>
+                <p class=""></p>
+                <button type="submit" class="b-button">Log In</button>
+            </form>
+            <p class="normal"><a href="#" id="switch-to-signup">Sign Up</a></p>
+        </div>
+
+        <div id="logout-section" style="display: none; color:white;">
+            <h2 class="bold">로그아웃 하시겠습니까?</h2>
+            <span id="current-user"></span></h2>
+            <br>
+            <button id="logout-button" class="c-button">Log Out</button>
+        </div>
+    
+
+    <script>
+        const signupSection = document.getElementById('signup-section');
+        const loginSection = document.getElementById('login-section');
+        const logoutSection = document.getElementById('logout-section');
+        const currentUserSpan = document.getElementById('current-user');
+
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        // 페이지 로드 시 로그인 상태 확인
+        if (currentUser) {
+            showLogoutSection(currentUser);
+        } else {
+            showLoginSection();
+        }
+
+        // 회원가입 폼 제출
+        document.getElementById('signup-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.getElementById('signup-username').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value;
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // 중복 이메일 체크
+            if (users.some(user => user.email === email)) {
+                alert('이미 등록된 이메일입니다.');
+                return;
+            }
+
+            // 회원 추가
+            users.push({ username, email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('회원가입 성공!');
+            showLoginSection();
+        });
+
+        // 로그인 폼 제출
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(user => user.email === email && user.password === password);
+
+            if (user) {
+                alert(`환영합니다, ${user.username}!`);
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                // 로그인 성공 시 detailM1.html로 이동
+                window.location.href = 'index.html';
+            } else {
+                alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+            }
+        });
+
+        // 로그아웃 버튼 클릭
+        document.getElementById('logout-button').addEventListener('click', function () {
+            localStorage.removeItem('currentUser');
+            alert('로그아웃되었습니다.');
+            showLoginSection();
+        });
+
+        // 로그인 섹션
+        function showLoginSection() {
+            signupSection.style.display = 'none';
+            loginSection.style.display = 'block';
+            logoutSection.style.display = 'none';
+        }
+
+        // 회원가입 섹션
+        function showSignupSection() {
+            signupSection.style.display = 'block';
+            loginSection.style.display = 'none';
+            logoutSection.style.display = 'none';
+        }
+
+        // 로그아웃 섹션
+        function showLogoutSection(user) {
+            signupSection.style.display = 'none';
+            loginSection.style.display = 'none';
+            logoutSection.style.display = 'block';
+        }
+
+        // 회원가입/로그인 전환
+        document.getElementById('switch-to-signup').addEventListener('click', function (e) {
+            e.preventDefault();
+            showSignupSection();
+        });
+
+        document.getElementById('switch-to-login').addEventListener('click', function (e) {
+            e.preventDefault();
+            showLoginSection();
+        });
+    </script>
+</body>
+
+</html>

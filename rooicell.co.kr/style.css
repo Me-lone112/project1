@@ -1,0 +1,126 @@
+/* styles.css */
+body
+{
+  margin: 0px;
+  padding: 0px;
+}
+
+.top_list
+{
+  margin: 30px;
+}
+
+#product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  width:100%;
+  max-width: 800px; 
+  margin: 0 auto; 
+}
+
+.product {
+  width: calc(50% - 10px); /* 한 행에 2개씩 배치 */
+  border: 1px solid #ccc;
+  padding: 0px;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+
+.product-image {
+  width: 100%;
+  height: 1000px;
+  display: block;
+}
+
+.modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto; /* 수직 스크롤 가능 */
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95); /* 약간 축소된 상태 */
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, visibility 0.4s;
+}
+
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 600px;
+  width: 100%;
+  transform: translateY(-20px); /* 모달이 처음에 살짝 위에 있음 */
+  transition: transform 0.4s ease-in-out;
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1); /* 원래 크기로 확대 */
+}
+
+.modal.show .modal-content {
+  transform: translateY(0); /* 원래 위치로 이동 */
+}
+
+
+
+.close {
+  cursor: pointer;
+  float: right;
+  font-size: 20px;
+
+  
+}
+
+#pagination-container {
+  display: flex;
+  justify-content: center; /* 수평 중앙정렬 */
+  align-items: center; /* 수직 중앙정렬 */
+  margin-top: 20px; /* 위와의 간격 */
+  gap: 10px; /* 버튼과 텍스트 간의 간격 */
+}
+
+#pagination-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+#pagination-container button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+#pagination-container span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.top_div_menu
+{
+  width: 100%;
+  height: 200px;
+}
+
+.top_iframe_menu
+{
+  border: none;
+  width: 100%;
+  height: 100vh;
+}
+
